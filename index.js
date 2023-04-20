@@ -1,13 +1,17 @@
-// Load environment variables from the .env file
-require('dotenv').config();
-
-// Import required modules
-const { Client, IntentsBitField } = require('discord.js');
-const { Configuration, OpenAIApi } = require('openai');
-
 // Define a ChatGPTBot class
 class ChatGPTBot {
-  constructor() {
+  /**
+   * A Discord bot that generates responses using OpenAI's API.
+   * @param {number} max_messages - The maximum number of messages to retrieve and include in the conversation log (default is 10) set in main function.
+   */
+  constructor(max_messages) {
+    // Save the maxMessages value as an instance variable
+    this.max_messages = max_messages;
+
+    // Import required modules
+    const { Client, IntentsBitField } = require('discord.js');
+    const { Configuration, OpenAIApi } = require('openai');
+
     // Initialize the Discord bot client with the specified intents
     this.bot = new Client({
       intents: [
@@ -45,14 +49,9 @@ class ChatGPTBot {
         // Show the typing indicator while generating a response
         await message.channel.sendTyping();
 
-        // Retrieve the last 10 messages from the channel and reverse them
-        let prevMessages = await message.channel.messages.fetch({ limit: 10 });
+        // Retrieve the last max_messages value of messages from the channel and reverse them
+        let prevMessages = await message.channel.messages.fetch({ limit: this.max_messages });
         prevMessages.reverse();
-
-        // If there are more than 10 previous messages, remove the oldest one
-        if (prevMessages.length > 10) {
-          prevMessages.shift();
-        }
 
         // Add each previous message to the conversation log
         prevMessages.forEach((oldmessage) => {
@@ -83,5 +82,14 @@ class ChatGPTBot {
   }
 }
 
-// Initialize a new ChatGPTBot instance
-const bot = new ChatGPTBot();
+// Define a main function
+function main(max_messages=10) {
+  // Load environment variables from the .env file
+  require('dotenv').config();
+
+  // Initialize a new ChatGPTBot instance
+  const bot = new ChatGPTBot(max_messages);
+}
+
+// Call the main function with a maxMessages value
+main();
