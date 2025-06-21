@@ -1,7 +1,5 @@
 # Generative AI Discord Bot
-The Generative AI Discord bot utilizes the OpenAI API to provide AI-generated responses to users' messages. The bot is created using Node.js and Discord.js and responds when users type a message in a Discord channel that starts with the command "!chatgpt".
+A conversational Discord bot that utilizes OpenAI's API to provide AI-generated responses to user messages, built with JavaScript, Node.js, and Discord.js. The bot listens for messages prefixed with "!chatgpt" and responds with AI-generated replies, enabling real-time interactions within any Discord channel.
 
-To use this program, you must provide your own Discord bot token and OpenAI API secret key in the .env file. To run the program, use the command "node index.js"; however, you will first need Node.js installed.
-
-# Examples of how the Generative AI Discord Bot Function
+# Examples of the Generative AI Discord Bot Functioning
 ![ChatGPT Merged](https://user-images.githubusercontent.com/108039068/233410863-3ec71d59-cc51-437f-9108-426440064c9d.png)
